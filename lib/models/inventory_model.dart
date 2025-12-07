@@ -1,12 +1,6 @@
-
 // Inventory model for intelligent warehouse system
 
-enum InventoryStatus {
-  inStock,
-  lowStock,
-  outOfStock,
-  pending,
-}
+enum InventoryStatus { inStock, lowStock, outOfStock, pending }
 
 enum InventoryCategory {
   electronics,

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import '../theme/app_theme.dart';
 
@@ -92,9 +91,11 @@ class DeviceManagementPage extends StatelessWidget {
 
   // 统计项
   Widget _buildStatItem(
-    BuildContext context,
-    {required String title, required int count, required Color color}
-  ) {
+    BuildContext context, {
+    required String title,
+    required int count,
+    required Color color,
+  }) {
     return Expanded(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -234,7 +235,11 @@ class DeviceManagementPage extends StatelessWidget {
   }
 
   // 标签项
-  Widget _buildTabItem(BuildContext context, {required String title, required bool isActive}) {
+  Widget _buildTabItem(
+    BuildContext context, {
+    required String title,
+    required bool isActive,
+  }) {
     return Container(
       margin: const EdgeInsets.only(right: 12),
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
@@ -258,9 +263,16 @@ class DeviceManagementPage extends StatelessWidget {
 
   // 设备卡片
   Widget _buildDeviceCard(
-    BuildContext context,
-    {required IconData icon, required String name, required String type, required String status, required String location, required String lastActive, required Color color, String? warning}
-  ) {
+    BuildContext context, {
+    required IconData icon,
+    required String name,
+    required String type,
+    required String status,
+    required String location,
+    required String lastActive,
+    required Color color,
+    String? warning,
+  }) {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -279,11 +291,7 @@ class DeviceManagementPage extends StatelessWidget {
                         color: AppTheme.backgroundColor,
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: Icon(
-                        icon,
-                        size: 24,
-                        color: AppTheme.primaryColor,
-                      ),
+                      child: Icon(icon, size: 24, color: AppTheme.primaryColor),
                     ),
                     const SizedBox(width: 12),
                     Column(
@@ -310,7 +318,10 @@ class DeviceManagementPage extends StatelessWidget {
                   ],
                 ),
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
                   decoration: BoxDecoration(
                     color: color.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(12),
@@ -395,7 +406,9 @@ class DeviceManagementPage extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: AppTheme.warningColor.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: AppTheme.warningColor.withOpacity(0.3)),
+                    border: Border.all(
+                      color: AppTheme.warningColor.withOpacity(0.3),
+                    ),
                   ),
                   child: Row(
                     children: [

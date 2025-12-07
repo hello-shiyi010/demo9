@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -50,7 +49,8 @@ class AudioService {
     if (_recorder == null || !_isInitialized || _isRecording) return;
 
     try {
-      _recordingPath = 'audio_recording_${DateTime.now().millisecondsSinceEpoch}.aac';
+      _recordingPath =
+          'audio_recording_${DateTime.now().millisecondsSinceEpoch}.aac';
       await _recorder!.startRecorder(
         toFile: _recordingPath,
         codec: Codec.aacMP4,
@@ -105,7 +105,7 @@ class AudioService {
   // Set speaker volume
   Future<void> setVolume(double volume) async {
     if (_player == null || !_isInitialized) return;
-    
+
     try {
       await _player!.setVolume(volume);
     } catch (e) {

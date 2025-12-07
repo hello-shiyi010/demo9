@@ -1,4 +1,3 @@
-
 import 'dart:async';
 import 'package:camera/camera.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -47,7 +46,9 @@ class CameraService {
 
   // Start camera preview
   void startPreview() {
-    if (_controller != null && _isInitialized && !_controller!.value.isPreviewing) {
+    if (_controller != null &&
+        _isInitialized &&
+        !_controller!.value.isPreviewing) {
       _controller!.startImageStream((CameraImage image) {
         _imageStreamController?.add(image);
       });

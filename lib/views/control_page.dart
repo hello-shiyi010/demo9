@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
 import '../services/camera_service.dart';
@@ -102,9 +101,7 @@ class _ControlPageState extends State<ControlPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('设备控制中心'),
-      ),
+      appBar: AppBar(title: const Text('设备控制中心')),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -153,7 +150,10 @@ class _ControlPageState extends State<ControlPage> {
               value: _selectedDevice,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(),
-                contentPadding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                contentPadding: EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 12,
+                ),
               ),
               items: const [
                 DropdownMenuItem(value: '摄像头 1', child: Text('摄像头 1')),
@@ -168,10 +168,7 @@ class _ControlPageState extends State<ControlPage> {
                   _selectedDevice = value!;
                 });
               },
-              style: const TextStyle(
-                fontSize: 16,
-                color: AppTheme.textPrimary,
-              ),
+              style: const TextStyle(fontSize: 16, color: AppTheme.textPrimary),
             ),
           ],
         ),
@@ -192,7 +189,10 @@ class _ControlPageState extends State<ControlPage> {
               top: 16,
               right: 16,
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.black.withOpacity(0.6),
                   borderRadius: BorderRadius.circular(12),
@@ -273,10 +273,14 @@ class _ControlPageState extends State<ControlPage> {
                 ),
                 _buildControlButton(
                   context,
-                  icon: _cameraService.isRecording ? Icons.stop : Icons.videocam_outlined,
+                  icon: _cameraService.isRecording
+                      ? Icons.stop
+                      : Icons.videocam_outlined,
                   title: _cameraService.isRecording ? '停止录制' : '开始录制',
                   onPressed: _toggleCameraRecording,
-                  color: _cameraService.isRecording ? AppTheme.errorColor : AppTheme.primaryColor,
+                  color: _cameraService.isRecording
+                      ? AppTheme.errorColor
+                      : AppTheme.primaryColor,
                 ),
                 _buildControlButton(
                   context,
@@ -351,14 +355,15 @@ class _ControlPageState extends State<ControlPage> {
                   icon: Icon(
                     _audioService.isRecording ? Icons.stop : Icons.mic_outlined,
                   ),
-                  label: Text(
-                    _audioService.isRecording ? '停止录音' : '开始录音',
-                  ),
+                  label: Text(_audioService.isRecording ? '停止录音' : '开始录音'),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: _audioService.isRecording
                         ? AppTheme.errorColor
                         : AppTheme.primaryColor,
-                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 24,
+                      vertical: 12,
+                    ),
                   ),
                 ),
               ],
@@ -434,9 +439,12 @@ class _ControlPageState extends State<ControlPage> {
 
   // 控制按钮
   Widget _buildControlButton(
-    BuildContext context,
-    {required IconData icon, required String title, required VoidCallback onPressed, Color color = AppTheme.primaryColor}
-  ) {
+    BuildContext context, {
+    required IconData icon,
+    required String title,
+    required VoidCallback onPressed,
+    Color color = AppTheme.primaryColor,
+  }) {
     return ElevatedButton.icon(
       onPressed: onPressed,
       icon: Icon(icon, size: 24),
@@ -444,14 +452,9 @@ class _ControlPageState extends State<ControlPage> {
       style: ElevatedButton.styleFrom(
         backgroundColor: color,
         foregroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         padding: const EdgeInsets.all(16),
-        textStyle: const TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.w600,
-        ),
+        textStyle: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
         elevation: 0,
         shadowColor: Colors.transparent,
       ),

@@ -1,20 +1,8 @@
-
 // Device model for intelligent warehouse system
 
-enum DeviceType {
-  camera,
-  microphone,
-  speaker,
-  sensor,
-  other,
-}
+enum DeviceType { camera, microphone, speaker, sensor, other }
 
-enum DeviceStatus {
-  online,
-  offline,
-  alarm,
-  maintenance,
-}
+enum DeviceStatus { online, offline, alarm, maintenance }
 
 class Device {
   final String id;

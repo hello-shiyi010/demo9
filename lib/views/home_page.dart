@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../theme/app_theme.dart';
@@ -147,9 +146,13 @@ class HomePage extends StatelessWidget {
 
   // 设备项
   Widget _buildDeviceItem(
-    BuildContext context,
-    {required IconData icon, required String title, required int count, required String status, required Color color}
-  ) {
+    BuildContext context, {
+    required IconData icon,
+    required String title,
+    required int count,
+    required String status,
+    required Color color,
+  }) {
     return Container(
       padding: const EdgeInsets.all(16.0),
       decoration: BoxDecoration(
@@ -159,11 +162,7 @@ class HomePage extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(
-            icon,
-            size: 32,
-            color: AppTheme.primaryColor,
-          ),
+          Icon(icon, size: 32, color: AppTheme.primaryColor),
           const SizedBox(height: 8),
           Text(
             title,
@@ -225,11 +224,7 @@ class HomePage extends StatelessWidget {
                   change: '+2.5%',
                   color: AppTheme.successColor,
                 ),
-                Container(
-                  width: 1,
-                  height: 80,
-                  color: AppTheme.borderColor,
-                ),
+                Container(width: 1, height: 80, color: AppTheme.borderColor),
                 _buildInventoryItem(
                   context,
                   title: '今日入库',
@@ -237,11 +232,7 @@ class HomePage extends StatelessWidget {
                   change: '+15.2%',
                   color: AppTheme.successColor,
                 ),
-                Container(
-                  width: 1,
-                  height: 80,
-                  color: AppTheme.borderColor,
-                ),
+                Container(width: 1, height: 80, color: AppTheme.borderColor),
                 _buildInventoryItem(
                   context,
                   title: '今日出库',
@@ -259,9 +250,12 @@ class HomePage extends StatelessWidget {
 
   // 库存项
   Widget _buildInventoryItem(
-    BuildContext context,
-    {required String title, required String value, required String change, required Color color}
-  ) {
+    BuildContext context, {
+    required String title,
+    required String value,
+    required String change,
+    required Color color,
+  }) {
     return Expanded(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -288,7 +282,9 @@ class HomePage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(
-                change.startsWith('+') ? Icons.arrow_upward : Icons.arrow_downward,
+                change.startsWith('+')
+                    ? Icons.arrow_upward
+                    : Icons.arrow_downward,
                 size: 16,
                 color: color,
               ),
@@ -365,9 +361,13 @@ class HomePage extends StatelessWidget {
 
   // 活动项
   Widget _buildActivityItem(
-    BuildContext context,
-    {required IconData icon, required String title, required String time, required String status, required Color color}
-  ) {
+    BuildContext context, {
+    required IconData icon,
+    required String title,
+    required String time,
+    required String status,
+    required Color color,
+  }) {
     return Row(
       children: [
         Container(
@@ -377,11 +377,7 @@ class HomePage extends StatelessWidget {
             color: AppTheme.backgroundColor,
             borderRadius: BorderRadius.circular(12),
           ),
-          child: Icon(
-            icon,
-            size: 24,
-            color: AppTheme.primaryColor,
-          ),
+          child: Icon(icon, size: 24, color: AppTheme.primaryColor),
         ),
         const SizedBox(width: 16),
         Expanded(
