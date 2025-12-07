@@ -1,16 +1,204 @@
-# demo9
+# 智能仓储管理系统
 
-A new Flutter project.
+一个基于 Flutter 开发的智能仓储管理系统，用于实时监控和管理仓库设备、库存以及环境。
 
-## Getting Started
+## 项目概述
 
-This project is a starting point for a Flutter application.
+该智能仓储管理系统旨在帮助仓库管理人员实时监控仓库内的设备状态、库存情况，并提供便捷的设备控制功能。系统采用简约极奢的设计风格，界面清晰直观，操作简单易用。
 
-A few resources to get you started if this is your first Flutter project:
+## 技术栈
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- **框架**: Flutter 3.10.1
+- **开发语言**: Dart
+- **设备控制**: 
+  - 摄像头: `camera` 包
+  - 麦克风/扬声器: `flutter_sound` 包
+  - 权限管理: `permission_handler` 包
+- **UI 设计**: 
+  - 字体: `google_fonts`
+  - 状态管理: `provider`
+  - 动画: `lottie`
+  - Hooks: `flutter_hooks`
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## 项目结构
+
+```
+demo9/
+├── android/                # Android 平台特定代码
+├── ios/                    # iOS 平台特定代码
+├── lib/                    # Flutter 核心代码
+│   ├── main.dart           # 应用入口
+│   ├── models/             # 数据模型
+│   │   ├── device_model.dart    # 设备模型
+│   │   └── inventory_model.dart  # 库存模型
+│   ├── services/           # 服务层
+│   │   ├── camera_service.dart   # 摄像头服务
+│   │   └── audio_service.dart    # 音频服务
+│   ├── theme/              # 主题配置
+│   │   └── app_theme.dart        # 应用主题
+│   └── views/              # 页面组件
+│       ├── home_page.dart        # 首页
+│       ├── control_page.dart     # 设备控制页面
+│       └── device_management_page.dart  # 设备管理页面
+├── test/                   # 测试代码
+├── web/                    # Web 平台特定代码
+├── pubspec.yaml            # 项目依赖配置
+└── README.md               # 项目文档
+```
+
+## 核心功能
+
+### 1. 设备监控
+- 实时显示设备状态（在线/离线/告警/维护中）
+- 设备分类管理（摄像头、麦克风、扬声器、传感器等）
+- 设备位置定位
+- 设备告警通知
+
+### 2. 设备控制
+- 摄像头实时预览
+- 拍照和视频录制
+- 摄像头切换（前置/后置）
+- 闪光灯控制
+- 麦克风录音
+- 音频播放
+- 音量调节
+
+### 3. 库存管理
+- 库存物品分类管理
+- 实时库存数量监控
+- 最低库存预警
+- 库存物品位置管理
+- 供应商信息管理
+- 过期日期提醒
+
+### 4. 数据统计
+- 设备在线率统计
+- 库存状态统计
+- 最近活动记录
+- 告警记录查询
+
+## 安装和运行
+
+### 前置条件
+- 安装 Flutter SDK 3.10.1 或更高版本
+- 安装 Android Studio 或 VS Code 并配置 Flutter 插件
+- 连接 Android 或 iOS 设备，或配置模拟器
+
+### 安装步骤
+
+1. 克隆或下载项目代码
+
+2. 安装依赖
+   ```bash
+   flutter pub get
+   ```
+
+3. 运行项目
+   ```bash
+   flutter run
+   ```
+
+## 使用说明
+
+### 1. 首页
+- 显示设备状态概览
+- 展示库存统计数据
+- 查看最近活动记录
+
+### 2. 设备控制页面
+- 选择要控制的设备
+- 摄像头操作：
+  - 查看实时预览
+  - 点击拍照按钮进行拍照
+  - 点击录制按钮开始/停止视频录制
+  - 点击切换摄像头按钮切换前置/后置摄像头
+  - 点击闪光灯按钮开启/关闭闪光灯
+- 音频操作：
+  - 点击录音按钮开始/停止录音
+  - 拖动音量滑块调节扬声器音量
+
+### 3. 设备管理页面
+- 查看所有设备的状态
+- 筛选不同类型的设备
+- 查看设备详细信息
+- 处理设备告警
+
+## 代码说明
+
+### 1. 服务层设计
+
+- **CameraService**: 封装摄像头相关功能，包括初始化、预览、拍照、录像、切换摄像头等
+- **AudioService**: 封装音频相关功能，包括录音、播放、音量控制等
+
+### 2. 数据模型
+
+- **Device**: 设备模型，包含设备基本信息、状态、位置等
+- **InventoryItem**: 库存物品模型，包含物品信息、库存数量、位置等
+
+### 3. UI 设计
+
+采用简约极奢的设计风格：
+- 主色调：深蓝色 (#2C3E50)
+- 辅助色：红色 (#E74C3C)
+- 背景色：浅灰色 (#F8F9FA)
+- 表面色：白色 (#FFFFFF)
+- 字体：Inter 字体
+
+## 后续扩展计划
+
+1. **物联网集成**：
+   - 支持更多类型的传感器（温湿度、烟雾、红外等）
+   - 设备间联动控制
+   - 物联网平台对接（如 MQTT、CoAP 等）
+
+2. **库存管理增强**：
+   - 条形码/二维码扫描
+   - 库存盘点功能
+   - 出入库记录管理
+   - 自动补货提醒
+
+3. **数据分析**：
+   - 设备使用统计分析
+   - 库存趋势分析
+   - 能耗统计
+   - 异常行为检测
+
+4. **多平台支持**：
+   - Web 平台优化
+   - 桌面平台支持
+
+5. **用户管理**：
+   - 多用户权限管理
+   - 操作日志记录
+   - 远程访问控制
+
+## 注意事项
+
+1. **权限配置**：
+   - 应用需要摄像头、麦克风、存储等权限
+   - 在 Android 13+ 系统中，需要动态请求权限
+
+2. **设备兼容性**：
+   - 不同设备的摄像头和音频硬件可能存在差异
+   - 建议在目标设备上进行充分测试
+
+3. **性能优化**：
+   - 摄像头实时预览和视频录制会消耗较多资源
+   - 长时间使用可能导致设备发热和电池消耗
+
+4. **安全考虑**：
+   - 设备控制功能应仅授权给可信用户
+   - 敏感数据应进行加密存储和传输
+
+## 许可证
+
+MIT License
+
+## 联系方式
+
+如有问题或建议，请联系项目负责人。
+
+---
+
+**版本**: 1.0.0
+**更新日期**: 2025-12-07
