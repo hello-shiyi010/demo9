@@ -88,7 +88,7 @@ class AppTheme {
     ),
 
     // 卡片主题
-    cardTheme: CardTheme(
+    cardTheme: CardThemeData(
       elevation: 0,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),

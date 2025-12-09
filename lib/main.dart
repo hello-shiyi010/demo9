@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'views/home_page.dart';
 import 'views/control_page.dart';
 import 'views/device_management_page.dart';
+import 'services/warehouse_service.dart';
 import 'theme/app_theme.dart';
 
 void main() {
@@ -14,13 +16,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: '智能仓储管理系统',
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
-      themeMode: ThemeMode.light,
-      home: const MainScreen(),
+    return MultiProvider(
+      providers: [
+        Provider<WarehouseService>(create: (_) => WarehouseService()),
+      ],
+      child: MaterialApp(
+        title: '智能仓储管理系统',
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme.lightTheme,
+        darkTheme: AppTheme.darkTheme,
+        themeMode: ThemeMode.light,
+        home: const MainScreen(),
+      ),
     );
   }
 }
@@ -34,6 +41,7 @@ class MainScreen extends StatefulWidget {
 
 class _MainScreenState extends State<MainScreen> {
   int _selectedIndex = 0;
+  bool _isInitialized = false;
 
   // List of pages for the bottom navigation
   final List<Widget> _pages = [
@@ -50,7 +58,40 @@ class _MainScreenState extends State<MainScreen> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _initializeServices();
+  }
+
+  // Initialize warehouse service
+  Future<void> _initializeServices() async {
+    final warehouseService = Provider.of<WarehouseService>(
+      context,
+      listen: false,
+    );
+    await warehouseService.initialize();
+    setState(() {
+      _isInitialized = true;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if (!_isInitialized) {
+      return const Scaffold(
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircularProgressIndicator(),
+              SizedBox(height: 16),
+              Text('初始化中...'),
+            ],
+          ),
+        ),
+      );
+    }
+
     return Scaffold(
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(

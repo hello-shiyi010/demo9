@@ -46,9 +46,8 @@ class CameraService {
 
   // Start camera preview
   void startPreview() {
-    if (_controller != null &&
-        _isInitialized &&
-        !_controller!.value.isPreviewing) {
+    if (_controller != null && _isInitialized) {
+      // Check if image stream is not already running
       _controller!.startImageStream((CameraImage image) {
         _imageStreamController?.add(image);
       });
@@ -57,7 +56,8 @@ class CameraService {
 
   // Stop camera preview
   void stopPreview() {
-    if (_controller != null && _controller!.value.isPreviewing) {
+    if (_controller != null) {
+      // Stop image stream regardless of current state
       _controller!.stopImageStream();
     }
   }

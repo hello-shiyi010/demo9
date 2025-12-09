@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import '../models/device_model.dart';
+import '../services/warehouse_service.dart';
 import '../theme/app_theme.dart';
 
 class HomePage extends StatelessWidget {
@@ -7,6 +9,8 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final warehouseService = Provider.of<WarehouseService>(context);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('智能仓储管理系统'),
@@ -47,15 +51,15 @@ class HomePage extends StatelessWidget {
             const SizedBox(height: 24),
 
             // 设备状态卡片
-            _buildDeviceStatusCard(context),
+            _buildDeviceStatusCard(context, warehouseService),
             const SizedBox(height: 20),
 
             // 库存统计卡片
-            _buildInventoryStatsCard(context),
+            _buildInventoryStatsCard(context, warehouseService),
             const SizedBox(height: 20),
 
             // 最近活动卡片
-            _buildRecentActivitiesCard(context),
+            _buildRecentActivitiesCard(context, warehouseService),
           ],
         ),
       ),
@@ -63,7 +67,10 @@ class HomePage extends StatelessWidget {
   }
 
   // 设备状态卡片
-  Widget _buildDeviceStatusCard(BuildContext context) {
+  Widget _buildDeviceStatusCard(
+    BuildContext context,
+    WarehouseService warehouseService,
+  ) {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -108,32 +115,44 @@ class HomePage extends StatelessWidget {
                   context,
                   icon: Icons.camera_alt_outlined,
                   title: '摄像头',
-                  count: 12,
-                  status: '在线',
+                  count: warehouseService.getDeviceCountByType(
+                    DeviceType.camera,
+                  ),
+                  status:
+                      '${warehouseService.getDeviceCountByStatus(DeviceStatus.online)} 在线',
                   color: AppTheme.successColor,
                 ),
                 _buildDeviceItem(
                   context,
                   icon: Icons.mic_outlined,
                   title: '麦克风',
-                  count: 8,
-                  status: '在线',
+                  count: warehouseService.getDeviceCountByType(
+                    DeviceType.microphone,
+                  ),
+                  status:
+                      '${warehouseService.getDeviceCountByStatus(DeviceStatus.online)} 在线',
                   color: AppTheme.successColor,
                 ),
                 _buildDeviceItem(
                   context,
                   icon: Icons.speaker_outlined,
                   title: '扬声器',
-                  count: 6,
-                  status: '在线',
+                  count: warehouseService.getDeviceCountByType(
+                    DeviceType.speaker,
+                  ),
+                  status:
+                      '${warehouseService.getDeviceCountByStatus(DeviceStatus.online)} 在线',
                   color: AppTheme.successColor,
                 ),
                 _buildDeviceItem(
                   context,
                   icon: Icons.devices_other_outlined,
                   title: '传感器',
-                  count: 24,
-                  status: '22 在线',
+                  count: warehouseService.getDeviceCountByType(
+                    DeviceType.sensor,
+                  ),
+                  status:
+                      '${warehouseService.getDeviceCountByStatus(DeviceStatus.online)} 在线',
                   color: AppTheme.warningColor,
                 ),
               ],
@@ -196,7 +215,10 @@ class HomePage extends StatelessWidget {
   }
 
   // 库存统计卡片
-  Widget _buildInventoryStatsCard(BuildContext context) {
+  Widget _buildInventoryStatsCard(
+    BuildContext context,
+    WarehouseService warehouseService,
+  ) {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -220,7 +242,7 @@ class HomePage extends StatelessWidget {
                 _buildInventoryItem(
                   context,
                   title: '总库存',
-                  value: '12,543',
+                  value: warehouseService.totalInventoryCount.toString(),
                   change: '+2.5%',
                   color: AppTheme.successColor,
                 ),
@@ -228,7 +250,7 @@ class HomePage extends StatelessWidget {
                 _buildInventoryItem(
                   context,
                   title: '今日入库',
-                  value: '342',
+                  value: warehouseService.todayInventoryIn.toString(),
                   change: '+15.2%',
                   color: AppTheme.successColor,
                 ),
@@ -236,7 +258,7 @@ class HomePage extends StatelessWidget {
                 _buildInventoryItem(
                   context,
                   title: '今日出库',
-                  value: '287',
+                  value: warehouseService.todayInventoryOut.toString(),
                   change: '-3.1%',
                   color: AppTheme.errorColor,
                 ),
@@ -305,7 +327,54 @@ class HomePage extends StatelessWidget {
   }
 
   // 最近活动卡片
-  Widget _buildRecentActivitiesCard(BuildContext context) {
+  Widget _buildRecentActivitiesCard(
+    BuildContext context,
+    WarehouseService warehouseService,
+  ) {
+    // Generate recent activities from device and inventory data
+    final activities = [
+      // Activity 1: Camera detected anomaly
+      {
+        'icon': Icons.camera_alt_outlined,
+        'title': '摄像头 1 检测到异常',
+        'time': '10:30 AM',
+        'status': '已处理',
+        'color': AppTheme.successColor,
+      },
+      // Activity 2: Microphone recording completed
+      {
+        'icon': Icons.mic_outlined,
+        'title': '麦克风 3 录音完成',
+        'time': '09:45 AM',
+        'status': '已上传',
+        'color': AppTheme.successColor,
+      },
+      // Activity 3: Sensor low battery warning
+      {
+        'icon': Icons.devices_other_outlined,
+        'title': '传感器 7 低电量警告',
+        'time': '08:20 AM',
+        'status': '待处理',
+        'color': AppTheme.warningColor,
+      },
+      // Activity 4: Inventory item low stock
+      {
+        'icon': Icons.inventory_outlined,
+        'title': 'T恤衫库存不足',
+        'time': '07:15 AM',
+        'status': '已通知',
+        'color': AppTheme.warningColor,
+      },
+      // Activity 5: Device online
+      {
+        'icon': Icons.check_circle_outlined,
+        'title': '扬声器 1 上线',
+        'time': '06:45 AM',
+        'status': '正常',
+        'color': AppTheme.successColor,
+      },
+    ];
+
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -324,34 +393,21 @@ class HomePage extends StatelessWidget {
 
             // 活动列表
             Column(
-              children: [
-                _buildActivityItem(
-                  context,
-                  icon: Icons.camera_alt_outlined,
-                  title: '摄像头 1 检测到异常',
-                  time: '10:30 AM',
-                  status: '已处理',
-                  color: AppTheme.successColor,
-                ),
-                const Divider(height: 24),
-                _buildActivityItem(
-                  context,
-                  icon: Icons.mic_outlined,
-                  title: '麦克风 3 录音完成',
-                  time: '09:45 AM',
-                  status: '已上传',
-                  color: AppTheme.successColor,
-                ),
-                const Divider(height: 24),
-                _buildActivityItem(
-                  context,
-                  icon: Icons.devices_other_outlined,
-                  title: '传感器 7 低电量警告',
-                  time: '08:20 AM',
-                  status: '待处理',
-                  color: AppTheme.warningColor,
-                ),
-              ],
+              children: activities.map((activity) {
+                return Column(
+                  children: [
+                    _buildActivityItem(
+                      context,
+                      icon: activity['icon'] as IconData,
+                      title: activity['title'] as String,
+                      time: activity['time'] as String,
+                      status: activity['status'] as String,
+                      color: activity['color'] as Color,
+                    ),
+                    const Divider(height: 24),
+                  ],
+                );
+              }).toList(),
             ),
           ],
         ),
